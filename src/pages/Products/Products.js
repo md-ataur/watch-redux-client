@@ -15,6 +15,7 @@ const Products = () => {
             })
     }, []);
 
+
     return (
         <div className="max-w-6xl m-auto px-4 my-10 md:mt-16 md:mb-20">
             <h2 className="text-3xl md:text-4xl text-center uppercase font-medium text-gray-600 mb-8 md:mb-10">All Collection</h2>
@@ -31,7 +32,11 @@ const Products = () => {
                 :
                 <div className="grid grid-col-1 md:grid-cols-3 gap-x-8 gap-y-10 mb-10">
                     {
-                        products.map(product => <Product key={product.id} product={product}></Product>)
+                        products.map(product => <Product
+                            key={product._id}
+                            product={product}
+                        >
+                        </Product>)
                     }
                 </div>
             }

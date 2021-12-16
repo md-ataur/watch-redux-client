@@ -1,30 +1,51 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useState } from 'react/cjs/react.development';
+import useCart from '../../hooks/useCart';
+import useProducts from '../../hooks/useProducts';
+import { addToDb } from '../../utilities/fakedb';
 
 const ProductDetails = () => {
     const { pid } = useParams();
-    const [products, setProducts] = useState([]);
-    const [quantity, setQuantity] = useState(1);
+    const [products] = useProducts();
+    const [qunt, setQunt] = useState(1);
+    const [cart, setCart] = useCart(products);
 
-    const product = products.find((product) => product.id === pid);
-    console.log(product);
+    console.log(cart);
 
-    useEffect(() => {
-        fetch('../products.json')
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, []);
+    const product = products.find((product) => product._id === pid);
 
-    const updatePrice = product?.price * quantity;
+    // Add to Cart button handler
+    const handleAddToCart = (product) => {
+        const exists = cart.find(item => item.id === product._id);
+        let newCart = [];
 
-    const quantityIncrease = () => {
-        setQuantity(quantity + 1);
+        if (exists) {
+            const restProduct = cart.filter(item => item.id !== product._id);
+            exists.quantity = qunt;
+            newCart = [...restProduct];
+        }
+        else {
+            product.quantity = qunt;
+            newCart = [...cart, product];
+        }
+
+        setCart(newCart);
+
+        // Sent product id and quantity
+        addToDb(product._id, qunt);
     }
 
+    // Price update
+    const updatePrice = product?.price * qunt;
+
+    // Increase handler
+    const quantityIncrease = () => {
+        setQunt(qunt + 1);
+    }
+    // Decrease handler
     const quantityDecrease = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
+        if (qunt > 1) {
+            setQunt(qunt - 1);
         }
     }
 
@@ -39,17 +60,17 @@ const ProductDetails = () => {
                     <p className="text-2xl mb-4">${updatePrice}</p>
                     <p className="mb-4">{product?.desc}</p>
                     <p className="mb-2">Quantity:</p>
-                    <div class="w-32 mb-6 flex flex-row items-center justify-center h-12 border border-gray-300">
-                        <button onClick={quantityDecrease} class="text-gray-600 h-full w-20 cursor-pointer">
-                            <span class="pb-1 block text-2xl font-thin">−</span>
+                    <div className="w-28 mb-6 flex flex-row items-center justify-between h-12 border border-gray-300">
+                        <button onClick={quantityDecrease} className="text-gray-600 h-full w-10 cursor-pointer">
+                            <span className="pb-1 block text-2xl font-thin">−</span>
                         </button>
-                        <span>{quantity}</span>
-                        <button onClick={quantityIncrease} class="text-gray-600 h-full w-20 cursor-pointer">
-                            <span class="pb-1 block text-2xl font-thin">+</span>
+                        <span>{qunt}</span>
+                        <button onClick={quantityIncrease} className="text-gray-600 h-full w-10 cursor-pointer">
+                            <span className="pb-1 block text-2xl font-thin">+</span>
                         </button>
                     </div>
                     <div>
-                        <button className="py-2 px-5 text-lg rounded bg-gray-700 hover:bg-gray-600 text-white">Add to cart</button>
+                        <button onClick={() => handleAddToCart(product)} className="py-2 px-5 text-lg rounded bg-gray-700 hover:bg-gray-600 text-white">Add to cart</button>
                     </div>
                 </div>
             </div>
