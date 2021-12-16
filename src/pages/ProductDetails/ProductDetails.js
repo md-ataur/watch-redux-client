@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useCart from '../../hooks/useCart';
 import useProducts from '../../hooks/useProducts';
 import { addToDb } from '../../utilities/fakedb';
@@ -8,29 +8,20 @@ const ProductDetails = () => {
     const { pid } = useParams();
     const [qunt, setQunt] = useState(1);
     const [products] = useProducts();
-    // const [cart, setCart] = useCart(products);
+    const [message, setMessage] = useState('');
+    const [viewCart, setViewCart] = useState(false);
 
     const product = products.find((product) => product._id === pid);
 
+    setTimeout(() => {
+        setMessage('');
+    }, 3000);
+
     // AddToCart button handler
     const handleAddToCart = (product) => {
-        /* const exists = cart.find(item => item._id === product._id);
-        let newCart = [];
-
-        if (exists) {
-            const restProduct = cart.filter(item => item._id !== product._id);
-            exists.quantity = qunt;
-            newCart = [...restProduct];
-        }
-        else {
-            product.quantity = qunt;
-            newCart = [...cart, product];
-        }
-
-        setCart(newCart); */
-
-        // Sent product id and quantity
         addToDb(product._id, qunt);
+        setMessage('Item added to your cart');
+        setViewCart(true);
     }
 
     // Price update
@@ -68,8 +59,16 @@ const ProductDetails = () => {
                         </button>
                     </div>
                     <div>
-                        <button onClick={() => handleAddToCart(product)} className="py-2 px-5 text-lg rounded bg-gray-700 hover:bg-gray-600 text-white">Add to cart</button>
+                        <button onClick={() => handleAddToCart(product)} className="py-2 px-5 mr-2 text-lg rounded bg-gray-700 hover:bg-gray-600 text-white">Add to cart</button>
+                        {
+                            viewCart &&
+                            <Link className="text-lg text-gray-700 hover:opacity-70" to="/cart">View Cart</Link>
+                        }
                     </div>
+                    {
+                        message &&
+                        <p className="text-xl text-green-700 my-2">{message}</p>
+                    }
                 </div>
             </div>
         </div>
