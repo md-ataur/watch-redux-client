@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getStoredCart } from "../utilities/fakedb";
 
-const useCart = (products) => {
+const useCart = (products, toggle) => {
     const [cart, setCart] = useState([]);
 
     // Get data from the local storage
@@ -20,7 +20,7 @@ const useCart = (products) => {
             setCart(storedCart);
         }
 
-    }, [products]);
+    }, [products, toggle]);
 
     return [cart, setCart];
 }

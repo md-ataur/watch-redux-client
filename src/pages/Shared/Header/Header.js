@@ -10,7 +10,7 @@ const Header = () => {
             <div className="container mx-auto flex flex-wrap items-center justify-between">
                 <div className="w-full relative flex justify-between md:w-auto md:static md:block md:justify-start">
                     <div className="w-32">
-                        <img src={logo} alt="" />
+                        <Link to="/"><img src={logo} alt="" /></Link>
                     </div>
                     <button
                         className="text-gray-700 cursor-pointer text-3xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block md:hidden outline-none focus:outline-none"

@@ -6,21 +6,19 @@ import { addToDb } from '../../utilities/fakedb';
 
 const ProductDetails = () => {
     const { pid } = useParams();
-    const [products] = useProducts();
     const [qunt, setQunt] = useState(1);
-    const [cart, setCart] = useCart(products);
-
-    console.log(cart);
+    const [products] = useProducts();
+    // const [cart, setCart] = useCart(products);
 
     const product = products.find((product) => product._id === pid);
 
-    // Add to Cart button handler
+    // AddToCart button handler
     const handleAddToCart = (product) => {
-        const exists = cart.find(item => item.id === product._id);
+        /* const exists = cart.find(item => item._id === product._id);
         let newCart = [];
 
         if (exists) {
-            const restProduct = cart.filter(item => item.id !== product._id);
+            const restProduct = cart.filter(item => item._id !== product._id);
             exists.quantity = qunt;
             newCart = [...restProduct];
         }
@@ -29,7 +27,7 @@ const ProductDetails = () => {
             newCart = [...cart, product];
         }
 
-        setCart(newCart);
+        setCart(newCart); */
 
         // Sent product id and quantity
         addToDb(product._id, qunt);
@@ -50,12 +48,12 @@ const ProductDetails = () => {
     }
 
     return (
-        <div className="max-w-6xl m-auto px-4 my-10 md:mt-16 md:mb-20">
-            <div className="flex justify-between">
-                <div className="max-w-lg border px-2 py-6">
+        <div className="max-w-6xl m-auto px-4 mt-4 mb-10 md:mt-16 md:mb-20">
+            <div className="md:flex justify-between">
+                <div className="max-w-lg border px-2 py-6 mb-6">
                     <img src={product?.image} alt="" />
                 </div>
-                <div className="pl-20 flex-1">
+                <div className="md:pl-10 flex-1">
                     <h2 className="text-3xl mb-4">{product?.title}</h2>
                     <p className="text-2xl mb-4">${updatePrice}</p>
                     <p className="mb-4">{product?.desc}</p>

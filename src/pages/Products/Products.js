@@ -17,7 +17,7 @@ const Products = () => {
 
 
     return (
-        <div className="max-w-6xl m-auto px-4 my-10 md:mt-16 md:mb-20">
+        <div className="max-w-6xl m-auto px-4 mt-4 mb-10 md:mt-16 md:mb-20">
             <h2 className="text-3xl md:text-4xl text-center uppercase font-medium text-gray-600 mb-8 md:mb-10">All Collection</h2>
             {loading ?
                 <div className="text-center py-6 flex justify-around">

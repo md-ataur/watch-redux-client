@@ -1,29 +1,31 @@
 // Item add to the cart
 const addToDb = (id, qunt) => {
   const exists = getDb();
-  let shopping_cart = {};
+  let shoppingCart = {};
+
   if (!exists) {
-    shopping_cart[id] = qunt;
+    shoppingCart[id] = qunt;
   }
   else {
-    shopping_cart = JSON.parse(exists);
-    if (shopping_cart[id]) {
+    shoppingCart = JSON.parse(exists);
+    if (shoppingCart[id]) {
       const newCount = qunt;
-      shopping_cart[id] = newCount;
+      shoppingCart[id] = newCount;
     }
     else {
-      shopping_cart[id] = qunt;
+      shoppingCart[id] = qunt;
     }
   }
-  updateDb(shopping_cart);
+
+  updateDb(shoppingCart);
 }
 
 // Get cart items
-const getDb = () => localStorage.getItem('shopping_cart');
+const getDb = () => localStorage.getItem('cart_items');
 
 // Update cart item
 const updateDb = cart => {
-  localStorage.setItem('shopping_cart', JSON.stringify(cart));
+  localStorage.setItem('cart_items', JSON.stringify(cart));
 }
 
 // Remove cart item
@@ -32,9 +34,9 @@ const removeFromDb = id => {
   if (!exists) {
 
   } else {
-    const shopping_cart = JSON.parse(exists);
-    delete shopping_cart[id];
-    updateDb(shopping_cart);
+    const shoppingCart = JSON.parse(exists);
+    delete shoppingCart[id];
+    updateDb(shoppingCart);
   }
 }
 
@@ -46,7 +48,7 @@ const getStoredCart = () => {
 
 // Clear the cart
 const clearTheCart = () => {
-  localStorage.removeItem('shopping_cart');
+  localStorage.removeItem('cart_items');
 }
 
 export { addToDb, removeFromDb, clearTheCart, getStoredCart }
