@@ -41,6 +41,7 @@ const Cart = () => {
             setToggle(!toggle);
         }
     }
+
     // Decrease handler
     const quantityDecrease = (id) => {
         const exists = cart.find(item => item._id === id);
@@ -69,7 +70,7 @@ const Cart = () => {
                                     Quantity
                                 </th>
                                 <th scope="col" className="px-6 pb-3 text-left font-medium text-gray-600">
-                                    Total
+                                    Subtotal
                                 </th>
                                 <th scope="col" className="relative px-6 py-3">
                                     <span className="sr-only">Edit</span>
@@ -95,7 +96,7 @@ const Cart = () => {
                                         <div>${item?.price}</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="w-24 mb-6 flex flex-row items-center justify-between h-12">
+                                        <div className="w-24 flex flex-row items-center justify-between h-12">
                                             <button onClick={() => quantityDecrease(item?._id)} className="text-gray-600 h-full w-10 cursor-pointer">
                                                 <span className="pb-1 block text-2xl font-thin">−</span>
                                             </button>
@@ -122,24 +123,24 @@ const Cart = () => {
             }
             <div className="md:float-right w-full md:w-96 p-4">
                 <div>
-                    <div className="border-b border-gray-200 text-xl text-gray-600 pb-2 mb-2 flex justify-between">
+                    <div className="border-b border-gray-200 text-xl text-gray-600 pb-3 mb-2 flex justify-between">
                         <span>Subtotal:</span>
                         <span>${subTotal.toFixed(2)}</span>
                     </div>
-                    <div className="border-b border-gray-200 text-lg text-gray-600 pb-2 mb-2 flex justify-between">
+                    <div className="border-b border-gray-200 text-lg text-gray-600 pb-3 mb-2 flex justify-between">
                         <span>Shipping:</span>
                         <span>${subTotal ? shipping : 0}</span>
                     </div>
-                    <div className="border-b border-gray-200 text-lg text-gray-600 pb-2 mb-2 flex justify-between">
+                    <div className="border-b border-gray-200 text-lg text-gray-600 pb-3 mb-2 flex justify-between">
                         <span>Tax:</span>
                         <span>{subTotal ? 5 : 0}%</span>
                     </div>
-                    <div className="pb-2 mb-2 text-2xl text-gray-600 flex justify-between">
+                    <div className="pb-3 mb-2 text-2xl text-gray-600 flex justify-between">
                         <span>Total:</span>
                         <span>{subTotal ? totalPrice.toFixed(2) : 0}</span>
                     </div>
                 </div>
-                <div className="mt-4 float-right"><Link to="/shipping"><button className="text-lg bg-gray-700 hover:bg-gray-600 text-white rounded py-3 px-5">Checkout</button></Link></div>
+                <div className="mt-4 float-right"><Link to="/checkout"><button className="text-lg bg-gray-700 hover:bg-gray-600 text-white rounded py-3 px-5">Checkout</button></Link></div>
             </div>
         </div>
     );
