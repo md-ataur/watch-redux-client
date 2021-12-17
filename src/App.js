@@ -8,6 +8,9 @@ import Products from './pages/Products/Products';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
 import Cart from './pages/Cart/Cart';
 import Checkout from './pages/Checkout/Checkout';
+import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
+import AddProduct from './pages/Dashboard/Admin/AddProduct/AddProduct';
+import ManageProducts from './pages/Dashboard/Admin/ManageProducts/ManageProducts';
 
 function App() {
   return (
@@ -20,10 +23,20 @@ function App() {
           <Route path="/details/:pid" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/dashboard" element={
+            <Dashboard />}>
+            <Route path="addproduct" element={
+              <AddProduct />}>
+            </Route>
+            <Route path="manageproducts" element={
+              <ManageProducts />}>
+            </Route>
+          </Route>
+
         </Routes>
         <Footer></Footer>
       </Router>
-    </div>
+    </div >
   );
 }
 

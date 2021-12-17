@@ -37,7 +37,7 @@ const Header = () => {
                             <Link to="/watches">Watches</Link>
                         </li>
                         <li className="nav-item md:px-5 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">
-                            <Link to="/">About Us</Link>
+                            <Link to="/dashboard">Dashboard</Link>
                         </li>
                         <li className="nav-item md:px-5 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">
                             <Link to="/login">Login</Link>

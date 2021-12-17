@@ -7,11 +7,17 @@ import { addToDb } from '../../utilities/fakedb';
 const ProductDetails = () => {
     const { pid } = useParams();
     const [qunt, setQunt] = useState(1);
-    const [products] = useProducts();
+    const [product, setProduct] = useState([]);
     const [message, setMessage] = useState('');
     const [viewCart, setViewCart] = useState(false);
 
-    const product = products.find((product) => product._id === pid);
+    useEffect(() => {
+        fetch(`http://localhost:5000/products/${pid}`)
+            .then(res => res.json())
+            .then(data => setProduct(data))
+    }, []);
+
+    // const product = products.find((product) => product._id === pid);
 
     setTimeout(() => {
         setMessage('');
