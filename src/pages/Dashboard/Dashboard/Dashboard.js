@@ -22,8 +22,6 @@ const Dashboard = () => {
 
                     <div className="mb-3 px-3">
 
-                        <button className="text-gray-700 hover:text-gray-500 font-medium">Logout</button>
-
                         <Link className="text-gray-700 hover:text-gray-500 font-medium" to="/login">Login</Link>
 
                     </div>

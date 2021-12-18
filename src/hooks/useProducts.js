@@ -6,7 +6,7 @@ const useProducts = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch('http://localhost:5000/products')
+        fetch('https://safe-reef-49405.herokuapp.com/products')
             .then(res => res.json())
             .then(data => setProducts(data))
             .finally(() => {

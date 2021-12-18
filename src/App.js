@@ -11,6 +11,8 @@ import Checkout from './pages/Checkout/Checkout';
 import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
 import AddProduct from './pages/Dashboard/Admin/AddProduct/AddProduct';
 import ManageProducts from './pages/Dashboard/Admin/ManageProducts/ManageProducts';
+import Login from './pages/Login/Login/Login';
+import Register from './pages/Register/Register';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/details/:pid" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={
             <Dashboard />}>
             <Route path="addproduct" element={
@@ -32,7 +36,6 @@ function App() {
               <ManageProducts />}>
             </Route>
           </Route>
-
         </Routes>
         <Footer></Footer>
       </Router>

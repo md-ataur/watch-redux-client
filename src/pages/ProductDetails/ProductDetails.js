@@ -12,7 +12,7 @@ const ProductDetails = () => {
     const [viewCart, setViewCart] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/products/${pid}`)
+        fetch(`https://safe-reef-49405.herokuapp.com/products/${pid}`)
             .then(res => res.json())
             .then(data => setProduct(data))
     }, []);

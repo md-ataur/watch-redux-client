@@ -6,7 +6,7 @@ const AddProduct = () => {
     const [successMessage, setSuccessMessage] = useState('');
 
     const onSubmit = data => {
-        fetch(`http://localhost:5000/products`, {
+        fetch(`https://safe-reef-49405.herokuapp.com/products`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -46,7 +46,7 @@ const AddProduct = () => {
                     <label className="text-gray-700 mb-2 block">Image URL</label>
                     <input {...register("image", { required: true })} className="appearance-none border border-gray-300 shadow-sm rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring" />
                 </div>
-                <div className="mb-5">
+                <div className="mb-4">
                     <label className="text-gray-700 mb-2 block">Description</label>
                     <textarea {...register("desc", {})} cols="30" rows="3" className="appearance-none border border-gray-300 shadow-sm rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring" />
                 </div>
