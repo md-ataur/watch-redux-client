@@ -13,32 +13,66 @@ import AddProduct from './pages/Dashboard/Admin/AddProduct/AddProduct';
 import ManageProducts from './pages/Dashboard/Admin/ManageProducts/ManageProducts';
 import Login from './pages/Login/Login/Login';
 import Register from './pages/Register/Register';
+import AuthProvider from './context/AuthProvider';
+import MakeAdmin from './pages/Dashboard/Admin/MakeAdmin/MakeAdmin';
+import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute';
+import MyOrders from './pages/Dashboard/User/MyOrders/MyOrders';
+import ManageOrders from './pages/Dashboard/Admin/ManageOrders/ManageOrders';
+import AdminRoute from './pages/Login/AdminRoute/AdminRoute';
+import UserRoute from './pages/Login/UserRoute/UserRoute';
 
 function App() {
   return (
     <div>
-      <Router>
-        <Header></Header>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/watches" element={<Products />} />
-          <Route path="/details/:pid" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={
-            <Dashboard />}>
-            <Route path="addproduct" element={
-              <AddProduct />}>
+      <AuthProvider>
+        <Router>
+          <Header></Header>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/watches" element={<Products />} />
+            <Route path="/details/:pid" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={
+              <PrivateRoute>
+                <Checkout />
+              </PrivateRoute>}
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>}>
+              <Route path="addproduct" element={
+                <AdminRoute>
+                  <AddProduct />
+                </AdminRoute>}>
+              </Route>
+              <Route path="manageproducts" element={
+                <AdminRoute>
+                  <ManageProducts />
+                </AdminRoute>}>
+              </Route>
+              <Route path="manageorders" element={
+                <AdminRoute>
+                  <ManageOrders />
+                </AdminRoute>}>
+              </Route>
+              <Route path="makeadmin" element={
+                <AdminRoute>
+                  <MakeAdmin />
+                </AdminRoute>}>
+              </Route>
+              <Route path="myorders" element={
+                <UserRoute>
+                  <MyOrders />
+                </UserRoute>}>
+              </Route>
             </Route>
-            <Route path="manageproducts" element={
-              <ManageProducts />}>
-            </Route>
-          </Route>
-        </Routes>
-        <Footer></Footer>
-      </Router>
+          </Routes>
+          <Footer></Footer>
+        </Router>
+      </AuthProvider>
     </div >
   );
 }

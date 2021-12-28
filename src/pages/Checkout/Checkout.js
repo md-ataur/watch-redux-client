@@ -1,19 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import useAuth from '../../hooks/useAuth';
 import useCart from '../../hooks/useCart';
 import useProducts from '../../hooks/useProducts';
-import { getStoredCart } from '../../utilities/fakedb';
+import { clearTheCart, getStoredCart } from '../../utilities/fakedb';
 
 const Checkout = () => {
     const [products, setProducts, loading] = useProducts();
-    const [cart, setCart] = useCart(products);
-    const { register, handleSubmit } = useForm();
+    const [toggle, setToggle] = useState(true);
+    const [cart, setCart] = useCart(products, toggle);
+    const { user } = useAuth();
+    const { register, handleSubmit, reset } = useForm();
     const orders = getStoredCart();
+    const [successMessage, setSuccessMessage] = useState('');
 
     const onSubmit = data => {
         data.status = 'Pending';
         data.orders = orders;
-        console.log(data);
+
+        fetch(`http://localhost:5000/orders`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    setSuccessMessage('Received your order');
+                    reset();
+                    clearTheCart();
+                    setToggle(!toggle);
+                }
+                console.log(data);
+            })
     };
 
     return (
@@ -21,14 +42,18 @@ const Checkout = () => {
             <h2 className="text-3xl text-center text-gray-700 font-semibold mb-10">Billing Details</h2>
             <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-7 gap-10">
                 <div className="col-span-4">
+                    {
+                        successMessage &&
+                        <p className="bg-gray-600 text-white text-center py-3 px-4 mb-6">{successMessage}</p>
+                    }
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="mb-3">
                             <label className="text-gray-700 mb-2 block">Name</label>
-                            <input {...register("name", { required: true })} className="appearance-none border border-gray-300 shadow-sm rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring" />
+                            <input {...register("name", { required: true })} value={user?.displayName} readOnly className="appearance-none border border-gray-300 shadow-sm rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring" />
                         </div>
                         <div className="mb-3">
                             <label className="text-gray-700 mb-2 block">Email</label>
-                            <input {...register("email", { required: true })} className="appearance-none border border-gray-300 shadow-sm rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring" />
+                            <input {...register("email", { required: true })} value={user?.email} readOnly className="appearance-none border border-gray-300 shadow-sm rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring" />
                         </div>
                         <div className="mb-3">
                             <label className="text-gray-700 mb-2 block">Phone</label>
@@ -48,7 +73,7 @@ const Checkout = () => {
                     </form>
                 </div>
                 <div className="col-span-3">
-                    <h3 className="text-gray-600 text-lg mb-5">Your Order</h3>
+                    <h3 className="text-gray-600 text-lg mb-5">Your Orders</h3>
                     {loading ?
                         <div>
                             <button type="button" className="inline-flex items-center rounded text-lg text-white bg-gray-600 py-2 px-4 cursor-not-allowed" disabled>

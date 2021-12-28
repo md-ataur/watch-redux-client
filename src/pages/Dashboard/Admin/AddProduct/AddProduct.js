@@ -19,7 +19,7 @@ const AddProduct = () => {
                     setSuccessMessage('Successfully Product Added');
                     reset();
                 }
-                console.log(data);
+                // console.log(data);
             })
     };
 
