@@ -85,6 +85,8 @@ const useFirebase = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
+                getIdToken(user)
+                    .then(idToken => localStorage.setItem('idToken', idToken));
             } else {
                 setUser({});
             }
@@ -104,7 +106,7 @@ const useFirebase = () => {
 
     // Send email to check role
     useEffect(() => {
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://safe-reef-49405.herokuapp.com/users/${user.email}`)
             .then(res => res.json())
             .then(data => setAdmin(data.admin))
     }, [user.email]);
@@ -112,7 +114,7 @@ const useFirebase = () => {
     // Save user to database
     const saveUser = (email, name, method) => {
         const user = { email, name };
-        fetch(`http://localhost:5000/users`, {
+        fetch(`https://safe-reef-49405.herokuapp.com/users`, {
             method: method,
             headers: {
                 'content-type': 'application/json'

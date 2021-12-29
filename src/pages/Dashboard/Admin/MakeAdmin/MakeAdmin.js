@@ -3,35 +3,39 @@ import { useForm } from 'react-hook-form';
 
 const MakeAdmin = () => {
     const { register, handleSubmit, reset } = useForm();
-    const [successMessage, setSuccessMessage] = useState('');
+    const [message, setMessage] = useState('');
 
     const onSubmit = data => {
-        fetch(`http://localhost:5000/users/admin`, {
+        fetch(`https://safe-reef-49405.herokuapp.com/users/admin`, {
             method: 'PUT',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('idToken')}`
             },
             body: JSON.stringify(data)
         })
             .then(res => res.json())
             .then(data => {
-                if (data) {
-                    setSuccessMessage('User Role Added');
+                if (data.modifiedCount > 0) {
+                    setMessage('User Role Added');
                     reset();
                 }
-                // console.log(data);
+                if (data.modifiedCount === 0) {
+                    setMessage('Email not found');
+                }
+                console.log(data);
             })
     };
 
     setTimeout(() => {
-        setSuccessMessage("");
-    }, 3000);
+        setMessage("");
+    }, 4000);
 
     return (
-        <div className="max-w-lg mx-auto mt-20">
+        <div className="max-w-lg mx-auto mt-14">
             {
-                successMessage &&
-                <p className="text-gray-600 mb-3">{successMessage}</p>
+                message &&
+                <p className="text-gray-600 mb-3 text-lg">{message}</p>
             }
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">

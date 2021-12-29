@@ -3,25 +3,29 @@ import useAuth from '../../../../hooks/useAuth';
 
 const MyOrders = () => {
     const [myOrders, setMyOrders] = useState([]);
-    const { user, loading } = useAuth();
+    const { user } = useAuth();
 
     useEffect(() => {
         const email = user.email;
-        fetch(`http://localhost:5000/orders/byemail`, {
+        fetch(`https://safe-reef-49405.herokuapp.com/orders/byemail`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('idToken')}`
             },
-            body: JSON.stringify([email])
+            body: JSON.stringify({ email })
         })
             .then(res => res.json())
-            .then(data => setMyOrders(data))
+            .then(data => {
+                setMyOrders(data);
+                console.log(data);
+            })
     }, []);
 
     const handleDelete = (id) => {
         const proceed = window.confirm('Are you sure, you want to delete?');
         if (proceed) {
-            fetch(`http://localhost:5000/orders/${id}`, {
+            fetch(`https://safe-reef-49405.herokuapp.com/orders/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

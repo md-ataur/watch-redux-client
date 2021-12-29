@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import useAuth from '../../../hooks/useAuth';
 import { HiOutlineMenu, HiOutlineShoppingCart, HiX } from "react-icons/hi";
 import logo from '../../../images/logo.png';
+import useCart from '../../../hooks/useCart';
+import useProducts from '../../../hooks/useProducts';
 
 const Header = () => {
     const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -33,22 +35,22 @@ const Header = () => {
                     id="example-navbar-danger"
                 >
                     <ul className="md:flex flex-col md:flex-row list-none md:ml-auto text-center md:text-left">
-                        <li className="nav-item md:px-5 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">
+                        <li className="nav-item md:px-4 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">
                             <Link to="/">Home</Link>
                         </li>
-                        <li className="nav-item md:px-5 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">
+                        <li className="nav-item md:px-4 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">
                             <Link to="/watches">Watches</Link>
                         </li>
-                        <li className="nav-item md:px-5 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">
+                        <li className="nav-item md:px-4 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">
                             <Link to="/dashboard">Dashboard</Link>
                         </li>
-                        <li className="nav-item md:px-5 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">
+                        <li className="nav-item md:px-4 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">
                             <Link to="/cart" className="flex justify-center"><span className="text-2xl mr-1"><HiOutlineShoppingCart /></span> <span>Cart</span></Link>
                         </li>
                         {user.email ?
-                            <button className="nav-item md:px-5 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75" onClick={logout}>Logout</button>
+                            <button className="nav-item md:px-4 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75" onClick={logout}>Logout</button>
                             :
-                            <Link to="/login" className="nav-item md:px-5 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">Login</Link>
+                            <Link to="/login" className="nav-item md:px-4 py-2.5 uppercase leading-snug text-gray-700 hover:opacity-75">Login</Link>
                         }
                     </ul>
                 </div>

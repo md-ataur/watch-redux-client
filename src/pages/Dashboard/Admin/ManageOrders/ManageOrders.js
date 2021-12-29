@@ -6,7 +6,7 @@ const ManageOrders = () => {
     const [toggle, setToggle] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/orders`)
+        fetch(`https://safe-reef-49405.herokuapp.com/orders`)
             .then(res => res.json())
             .then(data => setOrders(data))
     }, [toggle]);
@@ -14,7 +14,7 @@ const ManageOrders = () => {
     // Handle Update Status
     const handleUpdate = (id) => {
         const orderStatus = { status };
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://safe-reef-49405.herokuapp.com/orders/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -34,7 +34,7 @@ const ManageOrders = () => {
     const handleDelete = (id) => {
         const proceed = window.confirm('Are you sure, you want to delete?');
         if (proceed) {
-            fetch(`http://localhost:5000/orders/${id}`, {
+            fetch(`https://safe-reef-49405.herokuapp.com/orders/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

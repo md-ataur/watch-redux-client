@@ -18,7 +18,7 @@ const Checkout = () => {
         data.status = 'Pending';
         data.orders = orders;
 
-        fetch(`http://localhost:5000/orders`, {
+        fetch(`https://safe-reef-49405.herokuapp.com/orders`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
