@@ -18,7 +18,6 @@ const Dashboard = () => {
                 <div>
                     {!admin &&
                         <div>
-                            <div className="mb-3 px-3"><NavLink style={({ isActive }) => isActive ? activeStyle : undefined} className="text-gray-700 hover:text-gray-500 font-medium" to="/dashboard/pay">Pay</NavLink></div>
                             <div className="mb-3 px-3"><NavLink style={({ isActive }) => isActive ? activeStyle : undefined} className="text-gray-700 hover:text-gray-500 font-medium" to="/dashboard/myorders">My Orders</NavLink></div>
                         </div>
                     }

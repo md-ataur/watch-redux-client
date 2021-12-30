@@ -12,8 +12,13 @@ This is an eCommerce project. A user can buy a product and then checkout from th
 * Cart page calculation
 * Quantity functionality
 * Dashboard for user and admin
+* Login and Registration
 * Google authentication
-* Status Update
+* Order Status Update
+* Make admin role
+* Manage all products by admin
+* Manage all orders by admin
+* Payment integration (Stripe)
 * Data hosted on the MongoDB
 * Node server hosted on the heroku
 * Clean and organized code.
