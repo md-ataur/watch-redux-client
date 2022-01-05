@@ -1,4 +1,4 @@
-# Watch Redux Project
+# Watch eCommerce Project
 
 This is an eCommerce project. A user can buy a product and then checkout from this application. Also, The user can see his/her orders in his/her dashboard. The admin can add a product and manage all products from the dashboard, Also can manage all orders.
 
