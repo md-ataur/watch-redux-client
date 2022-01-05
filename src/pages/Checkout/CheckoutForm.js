@@ -35,7 +35,6 @@ const CheckoutForm = () => {
     const tax = subTotal * 0.05;
     const totalPrice = subTotal ? subTotal + shipping + tax : 0;
 
-
     // Hitted to the strip api
     useEffect(() => {
         fetch(`https://safe-reef-49405.herokuapp.com/create-payment-intent`, {
@@ -49,7 +48,6 @@ const CheckoutForm = () => {
             .then(data => setClientSecret(data.clientSecret))
 
     }, [totalPrice]);
-
 
     // Handle submit
     const onSubmit = async data => {
